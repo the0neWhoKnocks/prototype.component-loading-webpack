@@ -1,8 +1,29 @@
 $namespace = '.chat';
 
 {$namespace} {
+  font-size: 1.25rem;
+  padding: 0.5em;
+  margin-top: 0.75em;
+  background: #eee;
   
-  &__start-btn {
-    background-color: green;
+  &__window {
+    display: none;
+  }
+  
+  &__blurb {
+    margin: 0;
+  }
+  
+  &__cta {
+    width: 100%;
+    font-size: inherit;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 0.5em;
+    border: solid 0.1em #666;
+    border-radius: 0.25em;
+    margin-top: 0.5em;
+    background-color: rgba(255, 255, 255, 0.25);
+    cursor: pointer;
   }
 }
