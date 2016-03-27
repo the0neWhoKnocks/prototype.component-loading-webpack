@@ -1,5 +1,5 @@
-import './Chat.css!';
-//import template from './Chat.hbs!';
+import './Chat.styl';
+import template from './Chat.hbs';
 
 class Chat {
   constructor(){
@@ -7,7 +7,9 @@ class Chat {
     this.jsPrefix = 'js-';
     this.selectors = {};
     
-    //console.log( template({}) );
+    this.markup = template({
+      namespace: this.namespace
+    });
   }
 }
 
