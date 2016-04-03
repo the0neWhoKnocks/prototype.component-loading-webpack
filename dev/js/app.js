@@ -13,5 +13,4 @@ $(function(){
   
   // TODO - temp for testing
   var chat = new Chat();
-  $('body').append( chat.markup );
 });

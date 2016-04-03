@@ -38,19 +38,19 @@ var config = {
       // add `$` & `jQuery` to window
       {
         test: /jquery\.js$/,
-        exclude: [node_modules_dir],
+        exclude: /node_modules/,
         loader: 'expose?$!expose?jQuery',
       },
       // add `nike` to window
       {
         test: /nike\.js$/,
-        exclude: [node_modules_dir],
+        exclude: /node_modules/,
         loader: 'expose?nike',
       },
       // transpile JS files
       {
         test: /\.js$/,
-        exclude: [node_modules_dir],
+        exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
           presets: ['es2015']
@@ -77,26 +77,12 @@ var config = {
   },
   
   plugins: [
-    // minify any files with a `.min.js` extension
-    new webpack.optimize.UglifyJsPlugin({
-      include: /\.min\.js$/,
-      minimize: true,
-      compress: {
-        warnings: false
-      }
-    }),
+    new webpack.optimize.OccurrenceOrderPlugin(true),
     // Ensures that anything in `vendor` isn't included in other chunks. Basically
     // telling it that if you require jQuery in one file, no need to include it
     // again because it'll be in the `vendor` bundle.
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity)
   ]
 };
-
-// Add `.min` for all entry points so the uglify plugin will kick in.
-var entries = Object.keys(config.entry);
-for(var i=0; i<entries.length; i++){
-  var entry = entries[i];
-  config.entry[entry+'.min'] = config.entry[entry];
-}
 
 module.exports = config;
