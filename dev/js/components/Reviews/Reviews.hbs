@@ -1,0 +1,17 @@
+<div class="{{namespace}}">
+{{#each reviews}}
+  <div class="{{../namespace}}__review">
+    <div class="{{../namespace}}__review-body">
+      <h2 class="{{../namespace}}__review-title">{{title}}</h2>
+      <div class="{{../namespace}}__review-info">
+        <div class="{{../namespace}}__review-stars">
+          <span>&#9734;&#9734;&#9734;&#9734;&#9734;</span>
+          <span class="{{../namespace}}__review-rating" style="width:{{rating}}%;">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+        </div>
+        <span class="{{../namespace}}__review-date">{{date}}</span> by <span class="{{../namespace}}__review-user">{{user}}</span>
+      </div>
+      <p class="{{../namespace}}__review-text">{{text}}</p>
+    </div>
+  </div>
+{{/each}}
+</div>

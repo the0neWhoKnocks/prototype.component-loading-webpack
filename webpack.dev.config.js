@@ -1,6 +1,5 @@
 var path = require('path');
 var webpack = require('webpack');
-var node_modules_dir = path.resolve(__dirname, 'node_modules');
 
 var config = {
   amd: { 
@@ -84,5 +83,21 @@ var config = {
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity)
   ]
 };
+
+// Add dynamic entries for components
+var fs = fs || require('fs');
+var COMPONENT_DIR = './dev/js/components/';
+var components = fs.readdirSync(COMPONENT_DIR);
+components.forEach(function(component){
+  config.entry[component] = path.resolve(__dirname, COMPONENT_DIR + component + '/' + component +'.js');
+  
+  // Exposes component to window so they work when loaded asynchronously.
+  // These rules have to be at the beginning, otherwise errors will be thrown.
+  config.module.loaders.unshift({
+    test: new RegExp(component+'\\.js$'),
+    exclude: /node_modules/,
+    loader: 'expose?'+component,
+  });
+});
 
 module.exports = config;
