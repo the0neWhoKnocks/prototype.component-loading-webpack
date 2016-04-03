@@ -23,5 +23,11 @@
     "wpWatch": "webpack --display-modules --colors --progress --config webpack.dev.config.js --watch"
   },
   "author": "Trevor Lemon",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.5.3",
+    "gulp-webpack": "^1.5.0"
+  }
 }
