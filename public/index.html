@@ -6,12 +6,27 @@
     body {
       font-family: Helvetica, Arial, sans-serif;
     }
+    .msg {
+      padding: 1em;
+      background: #FFFF9D;
+    }
+    .msg.has--loaded {
+      background: #66F3B3;
+    }
   </style>
+  <script src="js/common.min.js"></script>
   <script src="js/vendor.min.js"></script>
+  <!-- file doesn't exist, is rewritten by express -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    // roll yur own live-reload
+    var socket = io();
+    socket.on('RELOAD', function(){
+      location.reload();
+    });
+  </script>
   <script src="js/app.min.js"></script>
 </head>
 <body>
   <div class="msg js-msg">Libs not loaded.</div>
-  
-  <!-- add non-critical files below here -->
 </body>
