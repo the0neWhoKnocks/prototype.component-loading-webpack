@@ -12,7 +12,7 @@ function loadAsyncScripts(files){
   
   for(var i=0; i<files.length; i++){
     var defer = $.ajax({
-      url: files[i] +'.js',
+      url: files[i] +'.min.js',
       dataType: 'script',
       cache: true
     });
@@ -21,7 +21,7 @@ function loadAsyncScripts(files){
   }
   
   $.when.apply(null, asyncFiles).done(function(){
-    nike.log('[ LOADED ]', files.join(','));
+    nike.log('[ LOADED ]', files.join(', '));
     loadDefer.resolve();
   });
   
@@ -38,9 +38,10 @@ $(function(){
   loadAsyncScripts(app.pageComponents)
     .done(function(){
       var msg = "Libs have been loaded.";
-      
   
-      $('.js-msg').html(msg);
+      $('.js-msg')
+        .addClass('has--loaded')
+        .html(msg);
       nike.log(msg);
       
       app.chat = new Chat();

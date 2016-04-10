@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var conf = require('./conf.js');
 
 var config = {
   amd: { 
@@ -7,7 +8,7 @@ var config = {
   },
   
   entry: {
-    app: path.resolve(__dirname, './dev/js/app.js'),
+    app: path.resolve(__dirname, conf.paths.DEV_JS +'/app.js'),
     vendor: [
       'jquery', 
       'handlebars'
@@ -15,7 +16,8 @@ var config = {
   },
   
   output: {
-    path: path.resolve(__dirname, './public/js'),
+    path: path.resolve(__dirname, conf.paths.PUBLIC_JS+'/'),
+    publicPath: './',
     filename: '[name].js'
   },
   
@@ -77,19 +79,21 @@ var config = {
   
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(true),
+    
     // Ensures that anything in `vendor` isn't included in other chunks. Basically
     // telling it that if you require jQuery in one file, no need to include it
     // again because it'll be in the `vendor` bundle.
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity)
+    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity),
+    // Dump the remaining shared JS in common
+    new webpack.optimize.CommonsChunkPlugin('common', 'common.js')
   ]
 };
 
 // Add dynamic entries for components
 var fs = fs || require('fs');
-var COMPONENT_DIR = './dev/js/components/';
-var components = fs.readdirSync(COMPONENT_DIR);
+var components = fs.readdirSync(conf.paths.COMPONENTS+'/');
 components.forEach(function(component){
-  config.entry[component] = path.resolve(__dirname, COMPONENT_DIR + component + '/' + component +'.js');
+  config.entry[component] = path.resolve(__dirname, conf.paths.COMPONENTS +'/'+ component +'/'+ component +'.js');
   
   // Exposes component to window so they work when loaded asynchronously.
   // These rules have to be at the beginning, otherwise errors will be thrown.
