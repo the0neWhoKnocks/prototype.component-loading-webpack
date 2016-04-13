@@ -2,7 +2,7 @@ import $ from 'jquery';
 import './nike.js';
 
 var app = {
-  pageComponents: ['js/Chat', 'js/Reviews']
+  pageComponents: ['Chat', 'Reviews']
 };
 
 
@@ -12,7 +12,7 @@ function loadAsyncScripts(files){
   
   for(var i=0; i<files.length; i++){
     var defer = $.ajax({
-      url: files[i] +'.min.js',
+      url: 'js/components/'+ files[i] +'.min.js',
       dataType: 'script',
       cache: true
     });
