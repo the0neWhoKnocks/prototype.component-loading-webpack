@@ -93,7 +93,7 @@ var config = {
 var fs = fs || require('fs');
 var components = fs.readdirSync(conf.paths.COMPONENTS+'/');
 components.forEach(function(component){
-  config.entry[component] = path.resolve(__dirname, conf.paths.COMPONENTS +'/'+ component +'/'+ component +'.js');
+  config.entry['components/'+component] = path.resolve(__dirname, conf.paths.COMPONENTS +'/'+ component +'/'+ component +'.js');
   
   // Exposes component to window so they work when loaded asynchronously.
   // These rules have to be at the beginning, otherwise errors will be thrown.

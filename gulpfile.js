@@ -109,12 +109,12 @@ function minifyAssets(filePaths, fileNames, callback){
   
   if( filePaths ) sources = filePaths;
   
-  gulp.src( sources )
+  gulp.src(sources, {base:'./'})
     .pipe(uglify())
     .pipe(rename({
       suffix: '.min'
     }))
-    .pipe(gulp.dest(conf.paths.PUBLIC_JS));
+    .pipe(gulp.dest('./'));
   
   if( fileNames ) gutil.log(msgPrefix, fileNames.join(', '));
   else gutil.log(msgPrefix, 'files');
