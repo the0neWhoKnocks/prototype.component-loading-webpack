@@ -9,6 +9,8 @@ var WebpackDevServer = require('webpack-dev-server');
 var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var color = require('cli-color');
+var karmaServer = require('karma').Server;
+var opn = require('opn');
 var webpackConf = require('./webpack.dev.config.js');
 var conf = require('./conf.js');
 var server = express();
@@ -17,39 +19,6 @@ var http = require('http').Server(server);
 var io = require('socket.io')(http);
 var serverInitialized = false;
 
-function trimStats(stats){
-  var entries = Object.keys(stats.compilation.assets);
-  var i;
-  
-  for(i=0; i<entries.length; i++){
-    var entry = stats.compilation.assets[entries[i]];
-    
-    if( !entry.emitted ){
-      delete stats.compilation.assets[entries[i]];
-      stats.compilation.chunks.splice(i, 1);
-    }
-  }
-  
-  for(i in stats.compilation.chunks){
-    var chunk = stats.compilation.chunks[i];
-    
-    if( !chunk.rendered ){
-      delete stats.compilation.chunks[i];
-    }else{
-      var modules = chunk.modules;
-      
-      for(var j=0; j<modules.length; j++){
-        var module = modules[j];
-        
-        if( !module.built ){
-          delete stats.compilation.chunks[i].modules[j];
-        }
-      }
-    }
-  }
-  
-  return stats;
-}
 
 function initServer(){
   server.use(express.static(conf.paths.PUBLIC));
@@ -69,16 +38,22 @@ function initServer(){
   http.listen(conf.port, function(err){
     if(err) throw new gutil.PluginError('[SERVER]', err);
     
+    var url = 'http://localhost:'+ conf.port +'/';
     var msg = "\n\n"
       +"  █████████████████████████████████████████████\n"
       +"  █                                           █\n"
-      +"  █  Server running @ http://localhost:"+ conf.port +"/  █\n"
+      +"  █  Server running @ "+ url +"  █\n"
       +"  █                                           █\n"
       +"  █████████████████████████████████████████████\n";
    
     gutil.log( color.green.bold(msg) );
     
     serverInitialized = true;
+    
+    opn(url, {
+      app: ['chrome', '--incognito'],
+      wait: false // no need to wait for app to close
+    });
   });
 }
 
@@ -90,12 +65,7 @@ function initWebpack(watchChanges){
   return webpack(wpConf, null, function(err, stats){
     if(err) throw new gutil.PluginError('webpack', err);
     
-    // if watching, only show what was built
-    if( watchChanges ) stats = trimStats(stats);
-    
-    gutil.log("\n\n\n"+stats.toString({
-      colors: true
-    }));
+    gutil.log("\n\n\n"+stats.toString(conf.middleware.webpack.stats));
   })
   .pipe(gulp.dest(conf.paths.PUBLIC_JS));
 }
@@ -192,6 +162,20 @@ gulp.task('watch', function(callback){
   
   initWebpack(true);
   callback();
+});
+
+gulp.task('test', function(done){
+  new karmaServer({
+    configFile: path.resolve('./karma.conf.js')
+  }, done).start();
+});
+
+gulp.task('test:watch', function(done){
+  new karmaServer({
+    configFile: path.resolve('./karma.conf.js'),
+    singleRun: false,
+    autoWatch: true
+  }, done).start();
 });
 
 gulp.task('default', [], function(){

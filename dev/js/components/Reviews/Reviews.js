@@ -9,9 +9,9 @@ class Reviews {
     this.jsPrefix = '.js-'+this.namespace;
     this.template = template;
     this.selectors = {
-      //CTA: this.jsPrefix +'CTA'
     };
-    this.events = {};
+    this.events = {
+    };
     this.els = {
       $container: undefined
     };
@@ -26,11 +26,14 @@ class Reviews {
   }
   
   render(reviews){
-    this.els.$container.replaceWith(template({
+    if(!reviews) return false;
+    
+    this.els.$container.replaceWith(this.template({
       namespace: this.namespace,
       reviews: reviews
     }));
   }
 }
 
+window.Reviews = Reviews;
 module.exports = Reviews;
