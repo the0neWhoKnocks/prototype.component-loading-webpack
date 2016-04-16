@@ -1,4 +1,6 @@
-### NOTE - This is a work in progress
+# Creating components with WebPack 
+
+[![Build Status](https://travis-ci.org/the0neWhoKnocks/prototype.component-loading-webpack.svg?branch=master)](https://travis-ci.org/the0neWhoKnocks/prototype.component-loading-webpack)
 
 ## Installation
 
