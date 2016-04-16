@@ -30,7 +30,9 @@ class Chat {
   }
   
   addListeners(){
-    this.els.$cta.on(this.events.CLICK, this.handleCtaClick.bind(this));
+    this.els.$cta
+      .off(this.events.CLICK)
+      .on(this.events.CLICK, this.handleCtaClick.bind(this));
   }
   
   handleCtaClick(ev){
@@ -38,4 +40,5 @@ class Chat {
   }
 }
 
+window.Chat = Chat;
 module.exports = Chat;
