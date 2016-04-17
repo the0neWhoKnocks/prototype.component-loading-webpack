@@ -18,6 +18,21 @@ var router = express.Router();
 var http = require('http').Server(server);
 var io = require('socket.io')(http);
 var serverInitialized = false;
+var OS = function(){
+  var platform = process.platform;
+  
+  if( /^win/.test(platform) ) return 'WINDOWS';
+  else if( /^darwin/.test(platform) ) return 'OSX';
+  else if( /^linux/.test(platform) ) return 'LINUX';
+  else return platform;
+}();
+var CHROME = function(){
+  switch(OS){
+    case 'WINDOWS': return 'chrome';
+    case 'OSX': return 'google chrome';
+    case 'LINUX': return 'google-chrome';
+  }
+}();
 
 
 function initServer(){
@@ -51,7 +66,7 @@ function initServer(){
     serverInitialized = true;
     
     opn(url, {
-      app: ['chrome', '--incognito'],
+      app: [CHROME, '--incognito'],
       wait: false // no need to wait for app to close
     });
   });
