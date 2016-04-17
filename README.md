@@ -1,6 +1,7 @@
 # Creating components with WebPack 
 
 [![Build Status](https://travis-ci.org/the0neWhoKnocks/prototype.component-loading-webpack.svg?branch=master)](https://travis-ci.org/the0neWhoKnocks/prototype.component-loading-webpack)
+[![Coverage Status](https://coveralls.io/repos/github/the0neWhoKnocks/prototype.component-loading-webpack/badge.svg?branch=master)](https://coveralls.io/github/the0neWhoKnocks/prototype.component-loading-webpack?branch=master)
 
 ## Installation
 
@@ -17,6 +18,20 @@ gulp watch
 
 
 ## Notes
+
+- If you want to test Coveralls locally, you'll have to
+   - Uncomment the entry in `karma.conf.js` within `reporters`.
+   - Create a `.coveralls.yml` file and add your repo token.
+      - Get the token by signing in to https://coveralls.io with your GitHub 
+      creds.
+      - Go to the **Repos** section, click **Add Repos**, add the repo. 
+      - Go into the repo, there should be a **Refresh** button at the top, click 
+      on that and wait for the repo to sync.
+      - Once synced, there should be a **Repo Stats** section to the right where 
+      you'll find the repo token at the bottom. 
+      - Copy that token into `.coveralls.yml` like `repo_token: XXXXXXXXXXX`. 
+   - Now if you run tests locally, it'll push the current data to Coveralls if
+   the tests were successful.
 
 - Tried using webpack-dev-server and there were live-reload issues when used with
 Gulp. Basically WebPack would finish, reload the page, then files would be 

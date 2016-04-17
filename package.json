@@ -26,7 +26,8 @@
     "webpack": "^1.12.14"
   },
   "scripts": {
-    "test": "gulp test"
+    "test": "gulp test",
+    "coveralls": "cat ./.coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "author": "Trevor Lemon",
   "license": "ISC",
@@ -45,6 +46,7 @@
     "karma-babel-preprocessor": "^6.0.1",
     "karma-chrome-launcher": "^0.2.3",
     "karma-coverage": "^0.5.5",
+    "karma-coveralls": "^1.1.2",
     "karma-mocha": "^0.2.2",
     "karma-mocha-reporter": "^2.0.0",
     "karma-phantomjs-launcher": "^1.0.0",
