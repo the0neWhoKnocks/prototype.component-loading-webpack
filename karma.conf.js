@@ -61,7 +61,6 @@ module.exports = function(config) {
           presets: ['es2015']
         }
       },
-      
       module: wpConf.module
     },
     
