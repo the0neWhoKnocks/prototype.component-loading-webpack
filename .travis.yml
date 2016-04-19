@@ -7,6 +7,10 @@ node_js:
 cache:
   directories:
     - node_modules
+    - $(npm config get prefix)/lib/node_modules
+    - $(npm config get prefix)/bin/webpack
+    - $(npm config get prefix)/bin/gulp
+    - $(npm config get prefix)/bin/karma
 
 before_script:
   - npm i -g webpack gulp karma

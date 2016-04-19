@@ -1,5 +1,7 @@
 var path = require('path');
 var webpack = require('webpack');
+var readline = require('readline');
+var color = require('cli-color');
 var conf = require('./conf.js');
 
 var config = {
@@ -79,13 +81,23 @@ var config = {
   
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(true),
-    
     // Ensures that anything in `vendor` isn't included in other chunks. Basically
     // telling it that if you require jQuery in one file, no need to include it
     // again because it'll be in the `vendor` bundle.
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity),
     // Dump the remaining shared JS in common
-    new webpack.optimize.CommonsChunkPlugin('common', 'common.js')
+    new webpack.optimize.CommonsChunkPlugin('common', 'common.js'),
+    // Display progress bar when building
+    new webpack.ProgressPlugin(function handler(progress, msg){
+      var perc = Math.round(progress * 100);
+      var progressBar = new Array(Math.round(perc/2)).join(color.green('■'));
+      progressBar += new Array( 50 - Math.round(perc/2) ).join('-');
+      
+      readline.clearLine(process.stdout, 0);  // clear current text
+      readline.cursorTo(process.stdout, 0);  // move cursor to beginning of line
+      process.stdout.write(`\nBuilding [${progressBar}] ${perc}% `);
+      readline.moveCursor(process.stdout, 0, -1);
+    })
   ]
 };
 
