@@ -38,7 +38,13 @@ Gulp. Basically WebPack would finish, reload the page, then files would be
 written & minified. So you wouldn't see your previous changes until you manually
 refreshed or changed another file.
 
+
+## Troubleshooting
+
 - When setting up tests on Windows, it suggested going into ./node_modules/karma/bin
 and executing `karma init karma.conf.js` which fails when using Cygwin. You can
 run `zsh` (or what shell you're using) with Window' `cmd` to make it interactive
 `cmd /c start zsh`.
+
+- When trying to install `husky` via Cygwin I got an error, when using the normal
+Windows cmd terminal it succeeded. The error had to do with bad path resolution.

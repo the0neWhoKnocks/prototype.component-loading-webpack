@@ -27,7 +27,8 @@
   },
   "scripts": {
     "test": "gulp test",
-    "coveralls": "cat ./.coverage/lcov.info | ./node_modules/.bin/coveralls"
+    "coveralls": "cat ./.coverage/lcov.info | ./node_modules/.bin/coveralls",
+    "prepush": "npm test"
   },
   "author": "Trevor Lemon",
   "license": "ISC",
@@ -41,6 +42,7 @@
     "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.5",
     "gulp-webpack": "^1.5.0",
+    "husky": "^0.11.4",
     "isparta-loader": "^2.0.0",
     "karma": "^0.13.22",
     "karma-chrome-launcher": "^0.2.3",
