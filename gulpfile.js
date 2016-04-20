@@ -198,7 +198,7 @@ gulp.task('default', [], function(){
     +" Available commands:\n"
     +"\n"
     +" gulp build \n"
-    +" gulp watch \n"
+    +" gulp watch \n";
   
   gutil.log(cmds);
 });
