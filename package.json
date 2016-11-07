@@ -7,6 +7,10 @@
     "type": "git",
     "url": "git@github.com:the0neWhoKnocks/prototype.component-loading-webpack.git"
   },
+  "engines": {
+    "node": ">=5.5.0"
+  },
+  "engineStrict" : true,
   "dependencies": {
     "amd-define-factory-patcher-loader": "^1.0.0",
     "babel-core": "^6.5.2",

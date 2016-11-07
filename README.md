@@ -14,6 +14,11 @@ gulp build
 
 # This to build & start watching for changes.
 gulp watch
+
+# To run tests
+gulp test
+# OR
+gulp test:watch
 ```
 
 
