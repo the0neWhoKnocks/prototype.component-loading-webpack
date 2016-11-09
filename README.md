@@ -51,5 +51,8 @@ and executing `karma init karma.conf.js` which fails when using Cygwin. You can
 run `zsh` (or what shell you're using) with Window' `cmd` to make it interactive
 `cmd /c start zsh`.
 
-- When trying to install `husky` via Cygwin I got an error, when using the normal
-Windows cmd terminal it succeeded. The error had to do with bad path resolution.
+- On Windows (with Cygwin) if you try to install `husky` you'll get an error.
+There's currently [a PR out](https://github.com/typicode/husky/pull/70) for it, but if it still hasn't been merged by the
+time you try to install this, you can download the repo to the top level of this
+repo, and then just run `npm i ./husky`, `./husky` being the name of the
+downloaded folder.
